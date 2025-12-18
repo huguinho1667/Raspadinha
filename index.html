@@ -1,15 +1,126 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raspadinha</title>
+    <title>Raspadinha do Celin Safado</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Raspadinha Online</h1>
-    <canvas id="canvas" width="300" height="200"></canvas>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-gem"></i> Raspadinha do Prêmio</h1>
+            <p class="subtitle">Raspe e descubra se você ganhou o <strong>Celin Safado</strong>!</p>
+        </header>
+
+        <div class="game-container">
+            <div class="instructions">
+                <div class="instruction-card">
+                    <i class="fas fa-mouse-pointer"></i>
+                    <h3>Como Jogar</h3>
+                    <p>Clique e arraste o mouse sobre a área prateada para revelar o prêmio</p>
+                </div>
+                <div class="instruction-card">
+                    <i class="fas fa-redo"></i>
+                    <h3>Tente Novamente</h3>
+                    <p>Não ganhou? Clique no botão "Nova Raspadinha" para tentar outra vez</p>
+                </div>
+                <div class="instruction-card">
+                    <i class="fas fa-trophy"></i>
+                    <h3>O Prêmio</h3>
+                    <p>Raspe toda a área para descobrir se ganhou o <strong>Celin Safado</strong></p>
+                </div>
+            </div>
+
+            <div class="scratch-card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-scroll"></i>
+                        <h2>Raspadinha da Sorte</h2>
+                    </div>
+                    <div class="card-info">
+                        <span class="chip"><i class="fas fa-coins"></i> Prêmio Especial</span>
+                        <div class="progress">
+                            <div class="progress-bar" id="progressBar"></div>
+                            <span id="progressText">0% raspado</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scratch-area-container">
+                    <canvas id="scratchCanvas" width="500" height="300"></canvas>
+                    <div class="prize-message" id="prizeMessage">
+                        <div class="trophy">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h2>PARABÉNS!</h2>
+                        <h1>Você ganhou o <span class="highlight">CELIN SAFADO</span>!</h1>
+                        <p class="prize-description">Um smartphone lendário com poderes especiais!</p>
+                        <div class="prize-code">
+                            <p><i class="fas fa-key"></i> Código do Prêmio: <strong>CELIN-2023-SAFADO</strong></p>
+                            <button class="copy-btn" id="copyCodeBtn"><i class="far fa-copy"></i> Copiar Código</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <div class="stats">
+                        <div class="stat">
+                            <i class="fas fa-scroll"></i>
+                            <span>Raspadinhas: <strong id="scratchCount">1</strong></span>
+                        </div>
+                        <div class="stat">
+                            <i class="fas fa-award"></i>
+                            <span>Prêmios: <strong id="prizeCount">0</strong></span>
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <button class="btn secondary" id="resetBtn">
+                            <i class="fas fa-redo"></i> Limpar Área
+                        </button>
+                        <button class="btn primary" id="newCardBtn">
+                            <i class="fas fa-plus-circle"></i> Nova Raspadinha
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features">
+                <h3><i class="fas fa-star"></i> Características do Celin Safado</h3>
+                <div class="feature-list">
+                    <div class="feature">
+                        <i class="fas fa-bolt"></i>
+                        <span>Processador Turbo 5G</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-camera"></i>
+                        <span>Câmera de 108MP Noturna</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-infinity"></i>
+                        <span>Bateria de 3 dias</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-gamepad"></i>
+                        <span>Modo Gamer com RGB</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Este é um jogo simulado para diversão. Desenvolvido com HTML5 Canvas.</p>
+            <p class="github-link">
+                <i class="fab fa-github"></i> 
+                Hospedado no GitHub - Código disponível para estudo
+            </p>
+        </footer>
+    </div>
+
+    <div class="confetti-container" id="confettiContainer"></div>
+    
     <script src="script.js"></script>
 </body>
 </html>
-
