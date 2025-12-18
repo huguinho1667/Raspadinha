@@ -21,6 +21,7 @@ body {
     font-size: 20px;
     color: #000;
     text-align: center;
+    z-index: 1; /* Fica atrás do canvas */
 }
 
 #canvas {
@@ -28,4 +29,5 @@ body {
     top: 0;
     left: 0;
     cursor: pointer;
+    z-index: 2; /* Fica na frente da frase */
 }
