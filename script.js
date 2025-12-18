@@ -77,3 +77,26 @@ canvas.addEventListener('mousemove', function(e) {
 canvas.addEventListener('mouseup', function() {
     fraseDiv.classList.remove('hidden'); // revela a frase
 });
+
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const fraseDiv = document.getElementById('frase');
+
+// Aqui você cria a camada cinza da raspadinha
+ctx.fillStyle = '#C0C0C0'; // cor da raspadinha
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+// Evento de raspagem
+canvas.addEventListener('mousemove', function(e) {
+    if(e.buttons !== 1) return; // só raspa com clique segurado
+
+    const x = e.offsetX;
+    const y = e.offsetY;
+
+    ctx.clearRect(x-10, y-10, 20, 20); // "raspa" a área
+});
+
+// Exemplo simples: mostrar a frase quando raspar 50% da área
+canvas.addEventListener('mouseup', function() {
+    fraseDiv.classList.remove('hidden'); // revela a frase
+});
