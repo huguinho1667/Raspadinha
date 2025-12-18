@@ -1,92 +1,9 @@
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
-    padding: 20px;
-    background-color: #f2f2f2;
-}
-
-.container {
-    background-color: #fff;
-    padding: 20px;
-    display: inline-block;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-}
-
-canvas {
-    border: 2px solid #333;
-    margin: 10px 0;
-    cursor: pointer;
-}
-
-.hidden {
-    display: none;
-}
-
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    margin-top: 10px;
-    cursor: pointer;
-}
-
-#frase {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 20px;
-    color: #000;
-    text-align: center;
-    pointer-events: none;
-}
-
-.hidden {
-    display: none;
-}
-
-#raspadinha {
-    position: relative; /* necessário para posicionar a frase */
-    width: 300px;
-    height: 200px;
-    border: 2px solid #ccc;
-}
-
-#frase {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 20px;
-    color: #000;
-    text-align: center;
-    pointer-events: none; /* permite raspar sem atrapalhar */
-}
-
-.hidden {
-    display: none;
-}
-
-#raspadinha {
-    position: relative; /* necessário para posicionar a frase */
-    width: 300px;
-    height: 200px;
-    border: 2px solid #ccc;
-}
-
-#frase {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 20px;
-    color: #000;
-    text-align: center;
-    pointer-events: none; /* permite raspar sem atrapalhar */
-}
-
-.hidden {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
 }
 
 #raspadinha {
@@ -110,7 +27,5 @@ button {
     position: absolute;
     top: 0;
     left: 0;
-    width: 300px;
-    height: 200px;
     cursor: pointer;
 }
