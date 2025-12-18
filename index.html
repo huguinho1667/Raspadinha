@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raspadinha do Celin Safado</title>
+    <title>Raspadinha do Milhão</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
@@ -11,8 +11,8 @@
 <body>
     <div class="container">
         <header>
-            <h1><i class="fas fa-gem"></i> Raspadinha do Prêmio</h1>
-            <p class="subtitle">Raspe e descubra se você ganhou o <strong>Celin Safado</strong>!</p>
+            <h1><i class="fas fa-money-bill-wave"></i> Raspadinha do Milhão</h1>
+            <p class="subtitle">Raspe e descubra se você ganhou <strong>1 MILHÃO DE REAIS</strong>!</p>
         </header>
 
         <div class="game-container">
@@ -30,7 +30,7 @@
                 <div class="instruction-card">
                     <i class="fas fa-trophy"></i>
                     <h3>O Prêmio</h3>
-                    <p>Raspe toda a área para descobrir se ganhou o <strong>Celin Safado</strong></p>
+                    <p>Raspe toda a área para descobrir se ganhou <strong>1 MILHÃO</strong></p>
                 </div>
             </div>
 
@@ -38,10 +38,10 @@
                 <div class="card-header">
                     <div class="card-title">
                         <i class="fas fa-scroll"></i>
-                        <h2>Raspadinha da Sorte</h2>
+                        <h2>Raspadinha Milionária</h2>
                     </div>
                     <div class="card-info">
-                        <span class="chip"><i class="fas fa-coins"></i> Prêmio Especial</span>
+                        <span class="chip"><i class="fas fa-gem"></i> PRÊMIO MÁXIMO</span>
                         <div class="progress">
                             <div class="progress-bar" id="progressBar"></div>
                             <span id="progressText">0% raspado</span>
@@ -53,14 +53,24 @@
                     <canvas id="scratchCanvas" width="500" height="300"></canvas>
                     <div class="prize-message" id="prizeMessage">
                         <div class="trophy">
-                            <i class="fas fa-trophy"></i>
+                            <i class="fas fa-money-bill-wave"></i>
                         </div>
                         <h2>PARABÉNS!</h2>
-                        <h1>Você ganhou o <span class="highlight">CELIN SAFADO</span>!</h1>
-                        <p class="prize-description">Um smartphone lendário com poderes especiais!</p>
+                        <h1>Você ganhou <span class="highlight">1 MILHÃO DE REAIS</span>!</h1>
+                        <p class="prize-description">Prêmio garantido! Entre em contato para resgatar.</p>
                         <div class="prize-code">
-                            <p><i class="fas fa-key"></i> Código do Prêmio: <strong>CELIN-2023-SAFADO</strong></p>
+                            <p><i class="fas fa-key"></i> Código do Prêmio: <strong>MILHÃO-2024-BR-001</strong></p>
                             <button class="copy-btn" id="copyCodeBtn"><i class="far fa-copy"></i> Copiar Código</button>
+                        </div>
+                        <div class="winning-info">
+                            <div class="info-item">
+                                <i class="fas fa-calendar-check"></i>
+                                <span>Validade: 31/12/2024</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-phone-alt"></i>
+                                <span>Resgate: 0800-MILHAO</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -75,6 +85,10 @@
                             <i class="fas fa-award"></i>
                             <span>Prêmios: <strong id="prizeCount">0</strong></span>
                         </div>
+                        <div class="stat">
+                            <i class="fas fa-wallet"></i>
+                            <span>Total: <strong id="totalPrize">R$ 0</strong></span>
+                        </div>
                     </div>
                     <div class="controls">
                         <button class="btn secondary" id="resetBtn">
@@ -88,30 +102,34 @@
             </div>
 
             <div class="features">
-                <h3><i class="fas fa-star"></i> Características do Celin Safado</h3>
+                <h3><i class="fas fa-star"></i> Como Resgatar Seu Prêmio</h3>
                 <div class="feature-list">
                     <div class="feature">
-                        <i class="fas fa-bolt"></i>
-                        <span>Processador Turbo 5G</span>
+                        <i class="fas fa-1"></i>
+                        <span>Anote o código do prêmio</span>
                     </div>
                     <div class="feature">
-                        <i class="fas fa-camera"></i>
-                        <span>Câmera de 108MP Noturna</span>
+                        <i class="fas fa-2"></i>
+                        <span>Ligue para 0800-MILHAO</span>
                     </div>
                     <div class="feature">
-                        <i class="fas fa-infinity"></i>
-                        <span>Bateria de 3 dias</span>
+                        <i class="fas fa-3"></i>
+                        <span>Forneça seus dados e código</span>
                     </div>
                     <div class="feature">
-                        <i class="fas fa-gamepad"></i>
-                        <span>Modo Gamer com RGB</span>
+                        <i class="fas fa-4"></i>
+                        <span>Receba em até 5 dias úteis</span>
                     </div>
                 </div>
             </div>
         </div>
 
+        <div class="disclaimer">
+            <p><i class="fas fa-exclamation-circle"></i> <strong>Atenção:</strong> Esta é uma simulação para fins de entretenimento. Não é uma raspadinha real com prêmios em dinheiro.</p>
+        </div>
+
         <footer>
-            <p>Este é um jogo simulado para diversão. Desenvolvido com HTML5 Canvas.</p>
+            <p>Raspadinha do Milhão - Jogo simulado para diversão. Desenvolvido com HTML5 Canvas.</p>
             <p class="github-link">
                 <i class="fab fa-github"></i> 
                 Hospedado no GitHub - Código disponível para estudo
@@ -120,6 +138,7 @@
     </div>
 
     <div class="confetti-container" id="confettiContainer"></div>
+    <div class="money-fall-container" id="moneyFallContainer"></div>
     
     <script src="script.js"></script>
 </body>
