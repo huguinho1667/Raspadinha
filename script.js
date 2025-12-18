@@ -2,7 +2,7 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
 // Mensagem que vai aparecer
-const frase = "Parabéns, Você ganhou o Ceellinho Safadinho";
+const frase = "Parabéns, Você ganhou o Celinho Safadinho";
 
 // Desenhar a frase primeiro, atrás da camada da raspadinha
 ctx.fillStyle = '#000';
@@ -43,4 +43,5 @@ canvas.addEventListener('touchmove', (e) => {
     const touch = e.touches[0];
     raspar(touch.clientX - rect.left, touch.clientY - rect.top);
 }, {passive: false});
+
 
