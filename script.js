@@ -7,27 +7,23 @@ const raio = 15;
 // Frase que vai aparecer
 const frase = "Parabéns, você ganhou o Marcelinho Safadinho";
 
-// Desenhar camada da raspadinha e frase
+// Inicia a raspadinha
 function iniciarRaspadinha() {
     // Limpa o canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Desenha a camada cinza por cima (raspadinha)
-    ctx.fillStyle = '#C0C0C0';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // Desenha a frase por baixo (vamos usar um canvas auxiliar)
-    // Aqui a frase ficará visível quando raspado
-    ctx.save();
-    ctx.globalCompositeOperation = 'destination-over'; // por baixo da camada cinza
+    // 1️⃣ Desenha a frase primeiro (ela ficará "embaixo")
     ctx.fillStyle = '#000';
     ctx.font = '20px Arial';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText(frase, canvas.width / 2, canvas.height / 2);
-    ctx.restore();
 
-    // Configura para raspagem
+    // 2️⃣ Desenha a camada cinza por cima (raspadinha)
+    ctx.fillStyle = '#C0C0C0';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Configura o canvas para raspar a camada cinza
     ctx.globalCompositeOperation = 'destination-out';
 }
 
@@ -53,6 +49,7 @@ canvas.addEventListener('touchmove', (e) => {
     raspar(touch.clientX - rect.left, touch.clientY - rect.top);
 }, {passive: false});
 
-// Inicia a raspadinha
+// Executa a raspadinha
 iniciarRaspadinha();
+
 
