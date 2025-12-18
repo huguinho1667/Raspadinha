@@ -8,8 +8,10 @@ const resetBtn = document.getElementById('resetBtn');
 const newCardBtn = document.getElementById('newCardBtn');
 const scratchCountEl = document.getElementById('scratchCount');
 const prizeCountEl = document.getElementById('prizeCount');
+const totalPrizeEl = document.getElementById('totalPrize');
 const copyCodeBtn = document.getElementById('copyCodeBtn');
 const confettiContainer = document.getElementById('confettiContainer');
+const moneyFallContainer = document.getElementById('moneyFallContainer');
 
 // Estado do jogo
 let isDrawing = false;
@@ -17,11 +19,22 @@ let lastX = 0;
 let lastY = 0;
 let scratchCount = 1;
 let prizeCount = 0;
+let totalPrize = 0;
 let revealed = false;
 
 // Configurações
-const scratchRadius = 20;
-const revealThreshold = 70; // Percentual necessário para revelar o prêmio
+const scratchRadius = 22;
+const revealThreshold = 65;
+const PRIZE_VALUES = [1000000, 500000, 100000, 50000, 10000, 5000, 1000];
+const PRIZE_NAMES = [
+    "1 MILHÃO DE REAIS",
+    "500 MIL REAIS", 
+    "100 MIL REAIS",
+    "50 MIL REAIS",
+    "10 MIL REAIS",
+    "5 MIL REAIS",
+    "1 MIL REAIS"
+];
 
 // Inicializar a raspadinha
 function initScratchCard() {
@@ -29,7 +42,7 @@ function initScratchCard() {
     canvas.width = 500;
     canvas.height = 300;
     
-    // Desenhar a superfície raspável (efeto metalizado)
+    // Desenhar a superfície raspável
     drawScratchSurface();
     
     // Adicionar event listeners
@@ -38,7 +51,6 @@ function initScratchCard() {
     canvas.addEventListener('mouseup', stopDrawing);
     canvas.addEventListener('mouseout', stopDrawing);
     
-    // Para dispositivos touch
     canvas.addEventListener('touchstart', handleTouchStart);
     canvas.addEventListener('touchmove', handleTouchMove);
     canvas.addEventListener('touchend', stopDrawing);
@@ -52,47 +64,51 @@ function initScratchCard() {
     updateCounters();
 }
 
-// Desenhar a superfície raspável
+// Desenhar a superfície raspável com tema do milhão
 function drawScratchSurface() {
-    // Fundo gradiente prateado
+    // Fundo gradiente dourado
     const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-    gradient.addColorStop(0, '#b0b0b0');
-    gradient.addColorStop(0.5, '#d0d0d0');
-    gradient.addColorStop(1, '#b0b0b0');
+    gradient.addColorStop(0, '#d4af37');
+    gradient.addColorStop(0.5, '#ffd700');
+    gradient.addColorStop(1, '#d4af37');
     
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
-    // Adicionar textura de risco
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-    for(let i = 0; i < 50; i++) {
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
-        const width = Math.random() * 30 + 10;
-        const height = Math.random() * 3 + 1;
-        
-        ctx.fillRect(x, y, width, height);
-    }
-    
-    // Adicionar logo ou texto sobre a raspadinha
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
-    ctx.font = 'bold 24px Arial';
+    // Adicionar padrão de cifrão
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+    ctx.font = 'bold 40px Arial';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText('RASPE AQUI PARA REVELAR', canvas.width/2, canvas.height/2);
+    
+    // Desenhar cifrões de fundo
+    for(let i = 0; i < 8; i++) {
+        for(let j = 0; j < 4; j++) {
+            const x = (i + 0.5) * (canvas.width / 8);
+            const y = (j + 0.5) * (canvas.height / 4);
+            ctx.fillText('$', x, y);
+        }
+    }
+    
+    // Texto principal
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+    ctx.font = 'bold 28px "Roboto Slab", serif';
+    ctx.fillText('RASPADINHA DO MILHÃO', canvas.width/2, canvas.height/2 - 30);
+    
+    ctx.font = 'bold 20px Arial';
+    ctx.fillText('Raspe para revelar seu prêmio', canvas.width/2, canvas.height/2 + 10);
     
     ctx.font = '16px Arial';
-    ctx.fillText('Use o mouse ou dedo para raspar', canvas.width/2, canvas.height/2 + 40);
+    ctx.fillText('Use o mouse ou dedo para raspar', canvas.width/2, canvas.height/2 + 50);
 }
 
-// Começar a desenhar (raspar)
+// Funções de desenho (mantidas do código anterior)
 function startDrawing(e) {
     isDrawing = true;
     [lastX, lastY] = getMousePos(canvas, e);
-    drawDot(lastX, lastY); // Raspa no ponto inicial
+    drawDot(lastX, lastY);
 }
 
-// Desenhar enquanto se move (raspar)
 function draw(e) {
     if (!isDrawing) return;
     
@@ -100,7 +116,6 @@ function draw(e) {
     
     const [x, y] = getMousePos(canvas, e);
     
-    // Desenhar linha entre a posição anterior e atual
     ctx.globalCompositeOperation = 'destination-out';
     ctx.lineJoin = 'round';
     ctx.lineCap = 'round';
@@ -111,16 +126,13 @@ function draw(e) {
     ctx.lineTo(x, y);
     ctx.stroke();
     
-    // Desenhar um círculo no ponto atual para cobrir melhor
     drawDot(x, y);
     
     [lastX, lastY] = [x, y];
     
-    // Verificar porcentagem raspada
     checkScratchProgress();
 }
 
-// Desenhar um ponto/círculo
 function drawDot(x, y) {
     ctx.globalCompositeOperation = 'destination-out';
     ctx.beginPath();
@@ -128,16 +140,13 @@ function drawDot(x, y) {
     ctx.fill();
 }
 
-// Parar de desenhar (raspar)
 function stopDrawing() {
     isDrawing = false;
 }
 
-// Obter posição do mouse/touch no canvas
 function getMousePos(canvas, e) {
     const rect = canvas.getBoundingClientRect();
     
-    // Verificar se é evento de touch
     if (e.type.includes('touch')) {
         const touch = e.touches[0] || e.changedTouches[0];
         return [
@@ -145,7 +154,6 @@ function getMousePos(canvas, e) {
             touch.clientY - rect.top
         ];
     } else {
-        // Evento de mouse
         return [
             e.clientX - rect.left,
             e.clientY - rect.top
@@ -153,7 +161,6 @@ function getMousePos(canvas, e) {
     }
 }
 
-// Handlers para touch events
 function handleTouchStart(e) {
     if (e.touches.length === 1) {
         e.preventDefault();
@@ -170,11 +177,9 @@ function handleTouchMove(e) {
 
 // Verificar progresso da raspagem
 function checkScratchProgress() {
-    // Obter dados da imagem
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const pixels = imageData.data;
     
-    // Contar pixels transparentes (raspados)
     let transparentPixels = 0;
     for (let i = 3; i < pixels.length; i += 4) {
         if (pixels[i] === 0) {
@@ -182,88 +187,152 @@ function checkScratchProgress() {
         }
     }
     
-    // Calcular porcentagem
     const totalPixels = canvas.width * canvas.height;
     const percentScratched = Math.round((transparentPixels / totalPixels) * 100);
     
-    // Atualizar barra de progresso
     progressBar.style.width = `${percentScratched}%`;
     progressText.textContent = `${percentScratched}% raspado`;
     
-    // Verificar se deve revelar o prêmio
     if (percentScratched >= revealThreshold && !revealed) {
         revealPrize();
     }
 }
 
-// Revelar o prêmio
+// Revelar o prêmio - AGORA MOSTRA "1 MILHÃO DE REAIS"
 function revealPrize() {
     revealed = true;
     
-    // Mostrar mensagem de prêmio
+    // Determinar prêmio (70% chance de ganhar algo)
+    const winsPrize = Math.random() < 0.7;
+    
+    if (winsPrize) {
+        // Selecionar um prêmio aleatório
+        const prizeIndex = Math.floor(Math.random() * PRIZE_VALUES.length);
+        const prizeValue = PRIZE_VALUES[prizeIndex];
+        const prizeName = PRIZE_NAMES[prizeIndex];
+        
+        // Atualizar mensagem com o prêmio
+        prizeMessage.querySelector('h1').innerHTML = 
+            `Você ganhou <span class="highlight">${prizeName}</span>!`;
+        
+        // Atualizar código do prêmio
+        prizeMessage.querySelector('.prize-code strong').textContent = 
+            `PRÊMIO-${prizeValue.toString().padStart(7, '0')}`;
+        
+        // Atualizar total
+        totalPrize += prizeValue;
+        prizeCount++;
+        
+        // Efeitos especiais para prêmios maiores
+        if (prizeValue >= 100000) {
+            launchMoneyFall();
+        }
+        
+    } else {
+        // Não ganhou
+        prizeMessage.querySelector('h2').textContent = "QUE PENA!";
+        prizeMessage.querySelector('h1').innerHTML = 
+            'Você <span class="highlight">não ganhou</span> desta vez!';
+        prizeMessage.querySelector('.prize-description').textContent = 
+            "Tente novamente com uma nova raspadinha!";
+        prizeMessage.querySelector('.prize-code').style.display = 'none';
+    }
+    
+    // Mostrar mensagem
     prizeMessage.classList.add('revealed');
     
-    // Atualizar contador de prêmios
-    prizeCount++;
+    // Atualizar contadores
     updateCounters();
     
-    // Lançar confetes
+    // Efeitos visuais
     launchConfetti();
-    
-    // Tocar som de vitória (simulado)
     playVictorySound();
+}
+
+// Efeito de dinheiro caindo
+function launchMoneyFall() {
+    const moneySymbols = ['💵', '💴', '💶', '💷', '💰', '💸'];
+    
+    for (let i = 0; i < 50; i++) {
+        const money = document.createElement('div');
+        money.className = 'money-bill';
+        money.textContent = moneySymbols[Math.floor(Math.random() * moneySymbols.length)];
+        
+        // Posição inicial aleatória
+        const startX = Math.random() * 100;
+        money.style.left = `${startX}vw`;
+        
+        // Tamanho aleatório
+        const size = Math.random() * 3 + 2;
+        money.style.fontSize = `${size}rem`;
+        
+        // Rotação inicial
+        const rotation = Math.random() * 360;
+        money.style.transform = `rotate(${rotation}deg)`;
+        
+        moneyFallContainer.appendChild(money);
+        
+        // Animar
+        animateMoneyFall(money, startX);
+    }
+    
+    // Limpar após 6 segundos
+    setTimeout(() => {
+        moneyFallContainer.innerHTML = '';
+    }, 6000);
+}
+
+function animateMoneyFall(money, startX) {
+    const duration = Math.random() * 4 + 4;
+    const horizontalMove = (Math.random() - 0.5) * 100;
+    const rotationSpeed = Math.random() * 720 + 360;
+    
+    money.style.transition = `all ${duration}s cubic-bezier(0.1, 0.7, 0.6, 1)`;
+    
+    setTimeout(() => {
+        money.style.top = '100vh';
+        money.style.left = `calc(${startX}vw + ${horizontalMove}px)`;
+        money.style.opacity = '0';
+        money.style.transform = `rotate(${rotationSpeed}deg)`;
+    }, 10);
 }
 
 // Criar efeito de confete
 function launchConfetti() {
-    const colors = ['#ffd93d', '#ff6b6b', '#6bcf7f', '#4d96ff', '#ff8e53'];
+    const colors = ['#ffd700', '#28a745', '#ff6b6b', '#4d96ff', '#ff8e53'];
     
-    for (let i = 0; i < 150; i++) {
+    for (let i = 0; i < 120; i++) {
         const confetti = document.createElement('div');
         confetti.className = 'confetti';
         
-        // Posição inicial aleatória no topo
         const startX = Math.random() * 100;
         confetti.style.left = `${startX}vw`;
         
-        // Cor aleatória
         const color = colors[Math.floor(Math.random() * colors.length)];
         confetti.style.backgroundColor = color;
         
-        // Tamanho aleatório
         const size = Math.random() * 10 + 5;
         confetti.style.width = `${size}px`;
         confetti.style.height = `${size * 1.5}px`;
         
-        // Rotação aleatória
         const rotation = Math.random() * 360;
         confetti.style.transform = `rotate(${rotation}deg)`;
         
-        // Adicionar ao container
         confettiContainer.appendChild(confetti);
-        
-        // Animar a queda
         animateConfetti(confetti, startX);
     }
     
-    // Limpar confetes após 5 segundos
     setTimeout(() => {
         confettiContainer.innerHTML = '';
     }, 5000);
 }
 
-// Animar confete caindo
 function animateConfetti(confetti, startX) {
-    // Duração aleatória entre 3 e 6 segundos
     const duration = Math.random() * 3 + 3;
+    const horizontalMove = (Math.random() - 0.5) * 80;
     
-    // Movimento horizontal aleatório
-    const horizontalMove = (Math.random() - 0.5) * 100;
-    
-    // Aplicar animação
     confetti.style.transition = `all ${duration}s linear`;
     
-    // Após um pequeno delay para animação começar
     setTimeout(() => {
         confetti.style.top = '100vh';
         confetti.style.left = `calc(${startX}vw + ${horizontalMove}px)`;
@@ -272,86 +341,56 @@ function animateConfetti(confetti, startX) {
     }, 10);
 }
 
-// Simular som de vitória
 function playVictorySound() {
-    // Em um cenário real, você usaria um arquivo de áudio
-    // Para este exemplo, apenas simulamos
-    console.log("🎉 Som de vitória tocado! Parabéns!");
-    
-    // Se quiser implementar som real, descomente o código abaixo
-    /*
-    const audio = new Audio('victory-sound.mp3');
-    audio.volume = 0.3;
-    audio.play();
-    */
+    // Som simulado - pode substituir por arquivo real
+    console.log("🎉 Parabéns! Prêmio revelado!");
 }
 
 // Limpar área raspada
 function resetScratchArea() {
-    // Redesenhar a superfície
     drawScratchSurface();
-    
-    // Resetar progresso
     progressBar.style.width = '0%';
     progressText.textContent = '0% raspado';
     
-    // Esconder mensagem de prêmio se estiver visível
     if (revealed) {
         prizeMessage.classList.remove('revealed');
         revealed = false;
+        
+        // Restaurar mensagem padrão
+        prizeMessage.querySelector('h2').textContent = "PARABÉNS!";
+        prizeMessage.querySelector('h1').innerHTML = 
+            'Você ganhou <span class="highlight">1 MILHÃO DE REAIS</span>!';
+        prizeMessage.querySelector('.prize-description').textContent = 
+            "Prêmio garantido! Entre em contato para resgatar.";
+        prizeMessage.querySelector('.prize-code').style.display = 'flex';
+        prizeMessage.querySelector('.prize-code strong').textContent = 
+            'MILHÃO-2024-BR-001';
     }
 }
 
 // Gerar nova raspadinha
 function generateNewCard() {
-    // Resetar canvas
     resetScratchArea();
-    
-    // Incrementar contador
     scratchCount++;
     updateCounters();
     
-    // Gerar um efeito visual de "nova carta"
     canvas.style.transform = 'scale(0.95)';
     setTimeout(() => {
         canvas.style.transform = 'scale(1)';
     }, 300);
-    
-    // Em alguns casos, a nova carta não terá prêmio (para simular)
-    // 70% de chance de ter prêmio, 30% de não ter
-    const hasPrize = Math.random() < 0.7;
-    
-    if (!hasPrize) {
-        // Alterar a mensagem de prêmio para "Tente novamente"
-        setTimeout(() => {
-            prizeMessage.querySelector('h2').textContent = "QUE PENA!";
-            prizeMessage.querySelector('h1').innerHTML = 'Tente na próxima <span class="highlight">raspadinha</span>!';
-            prizeMessage.querySelector('.prize-description').textContent = "Continue tentando para ganhar o Celin Safado!";
-            prizeMessage.querySelector('.prize-code').style.display = 'none';
-        }, 50);
-    } else {
-        // Restaurar mensagem original
-        setTimeout(() => {
-            prizeMessage.querySelector('h2').textContent = "PARABÉNS!";
-            prizeMessage.querySelector('h1').innerHTML = 'Você ganhou o <span class="highlight">CELIN SAFADO</span>!';
-            prizeMessage.querySelector('.prize-description').textContent = "Um smartphone lendário com poderes especiais!";
-            prizeMessage.querySelector('.prize-code').style.display = 'flex';
-        }, 50);
-    }
 }
 
 // Copiar código do prêmio
 function copyPrizeCode() {
-    const code = "CELIN-2023-SAFADO";
+    const codeElement = prizeMessage.querySelector('.prize-code strong');
+    const code = codeElement ? codeElement.textContent : "MILHÃO-2024-BR-001";
     
-    // Usar API Clipboard se disponível
     if (navigator.clipboard) {
         navigator.clipboard.writeText(code)
             .then(() => {
-                // Feedback visual
                 const originalText = copyCodeBtn.innerHTML;
                 copyCodeBtn.innerHTML = '<i class="fas fa-check"></i> Código Copiado!';
-                copyCodeBtn.style.background = '#6bcf7f';
+                copyCodeBtn.style.background = '#28a745';
                 
                 setTimeout(() => {
                     copyCodeBtn.innerHTML = originalText;
@@ -367,7 +406,6 @@ function copyPrizeCode() {
     }
 }
 
-// Método alternativo para copiar texto
 function fallbackCopyText(text) {
     const textArea = document.createElement('textarea');
     textArea.value = text;
@@ -377,10 +415,9 @@ function fallbackCopyText(text) {
     try {
         document.execCommand('copy');
         
-        // Feedback visual
         const originalText = copyCodeBtn.innerHTML;
         copyCodeBtn.innerHTML = '<i class="fas fa-check"></i> Código Copiado!';
-        copyCodeBtn.style.background = '#6bcf7f';
+        copyCodeBtn.style.background = '#28a745';
         
         setTimeout(() => {
             copyCodeBtn.innerHTML = originalText;
@@ -388,26 +425,34 @@ function fallbackCopyText(text) {
         }, 2000);
     } catch (err) {
         console.error('Erro ao copiar: ', err);
-        alert('Não foi possível copiar o código. Copie manualmente: ' + text);
+        alert('Copie manualmente: ' + text);
     }
     
     document.body.removeChild(textArea);
 }
 
-// Atualizar contadores na interface
+// Atualizar contadores
 function updateCounters() {
     scratchCountEl.textContent = scratchCount;
     prizeCountEl.textContent = prizeCount;
+    
+    // Formatador de moeda brasileira
+    const formatter = new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+        minimumFractionDigits: 2
+    });
+    
+    totalPrizeEl.textContent = formatter.format(totalPrize);
 }
 
 // Inicializar quando a página carregar
 window.addEventListener('load', initScratchCard);
 
-// Para garantir que o canvas se ajuste em dispositivos móveis
+// Ajustar para dispositivos móveis
 window.addEventListener('resize', function() {
-    // Manter proporção do canvas
     const container = canvas.parentElement;
-    const containerWidth = container.clientWidth - 40; // Considerando padding
+    const containerWidth = container.clientWidth - 40;
     
     if (containerWidth < canvas.width) {
         canvas.style.width = `${containerWidth}px`;
