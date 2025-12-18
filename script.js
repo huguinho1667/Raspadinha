@@ -47,3 +47,10 @@ novaRaspadinhaBtn.addEventListener('click', () => {
 });
 
 gerarRaspadinha();
+
+const fraseDiv = document.getElementById('frase');
+const premios = ["R$50", "R$100", "Cupom de desconto", "Tente novamente"];
+const premioSorteado = premios[Math.floor(Math.random() * premios.length)];
+
+fraseDiv.textContent = `Parabéns! Você ganhou: ${premioSorteado}`;
+fraseDiv.classList.remove('hidden');
