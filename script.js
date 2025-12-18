@@ -1,24 +1,27 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
-// Mensagem que vai aparecer
-const frase = "Parabéns, Você ganhou o Celinho Safadinho";
-
-// Desenhar a frase primeiro, atrás da camada da raspadinha
-ctx.fillStyle = '#000';
-ctx.font = '20px Arial';
-ctx.textAlign = 'center';
-ctx.textBaseline = 'middle';
-ctx.fillText(frase, canvas.width / 2, canvas.height / 2);
-
-// Desenhar a camada cinza da raspadinha por cima
-ctx.fillStyle = '#C0C0C0';
-ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-// Configura para “raspar” a camada
-ctx.globalCompositeOperation = 'destination-out';
-
 let raspando = false;
+
+// Função para iniciar a raspadinha com qualquer frase
+function iniciarRaspadinha(frase) {
+    // Limpa o canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Desenha a frase atrás da camada da raspadinha
+    ctx.fillStyle = '#000';
+    ctx.font = '20px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(frase, canvas.width / 2, canvas.height / 2);
+
+    // Desenha a camada cinza da raspadinha por cima
+    ctx.fillStyle = '#C0C0C0';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Configura para “raspar” a camada
+    ctx.globalCompositeOperation = 'destination-out';
+}
 
 // Função para raspar
 function raspar(x, y) {
@@ -31,9 +34,7 @@ function raspar(x, y) {
 canvas.addEventListener('mousedown', () => raspando = true);
 canvas.addEventListener('mouseup', () => raspando = false);
 canvas.addEventListener('mousemove', (e) => {
-    if (raspando) {
-        raspar(e.offsetX, e.offsetY);
-    }
+    if (raspando) raspar(e.offsetX, e.offsetY);
 });
 
 // Eventos para touch (celular)
@@ -44,4 +45,6 @@ canvas.addEventListener('touchmove', (e) => {
     raspar(touch.clientX - rect.left, touch.clientY - rect.top);
 }, {passive: false});
 
+// Inicia a raspadinha com a frase desejada
+iniciarRaspadinha("Parabéns, você ganhou o Marcelinho Safadinho");
 
