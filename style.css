@@ -44,3 +44,25 @@ button {
 .hidden {
     display: none;
 }
+
+#raspadinha {
+    position: relative; /* necessário para posicionar a frase */
+    width: 300px;
+    height: 200px;
+    border: 2px solid #ccc;
+}
+
+#frase {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    color: #000;
+    text-align: center;
+    pointer-events: none; /* permite raspar sem atrapalhar */
+}
+
+.hidden {
+    display: none;
+}
