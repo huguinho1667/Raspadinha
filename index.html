@@ -6,142 +6,336 @@
     <title>Raspadinha do Milhão</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1><i class="fas fa-money-bill-wave"></i> Raspadinha do Milhão</h1>
-            <p class="subtitle">Raspe e descubra se você ganhou <strong>1 MILHÃO DE REAIS</strong>!</p>
+        <!-- Cabeçalho Premium -->
+        <header class="premium-header">
+            <div class="header-content">
+                <div class="logo-container">
+                    <div class="logo-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>RASPADINHA<span class="gold-text">DO MILHÃO</span></h1>
+                        <p class="tagline">O jogo que pode mudar sua vida!</p>
+                    </div>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-box">
+                        <span class="stat-label">PRÊMIO MÁXIMO</span>
+                        <span class="stat-value">R$ 1.000.000</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">GANHADORES HOJE</span>
+                        <span class="stat-value">247</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-banner">
+                <div class="banner-text">
+                    <span class="banner-badge">LIMITADO</span>
+                    <span>Últimas raspadinhas da promoção!</span>
+                </div>
+            </div>
         </header>
 
-        <div class="game-container">
-            <div class="instructions">
-                <div class="instruction-card">
-                    <i class="fas fa-mouse-pointer"></i>
-                    <h3>Como Jogar</h3>
-                    <p>Clique e arraste o mouse sobre a área prateada para revelar o prêmio</p>
-                </div>
-                <div class="instruction-card">
-                    <i class="fas fa-redo"></i>
-                    <h3>Tente Novamente</h3>
-                    <p>Não ganhou? Clique no botão "Nova Raspadinha" para tentar outra vez</p>
-                </div>
-                <div class="instruction-card">
-                    <i class="fas fa-trophy"></i>
-                    <h3>O Prêmio</h3>
-                    <p>Raspe toda a área para descobrir se ganhou <strong>1 MILHÃO</strong></p>
-                </div>
-            </div>
-
-            <div class="scratch-card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <i class="fas fa-scroll"></i>
-                        <h2>Raspadinha Milionária</h2>
-                    </div>
-                    <div class="card-info">
-                        <span class="chip"><i class="fas fa-gem"></i> PRÊMIO MÁXIMO</span>
-                        <div class="progress">
-                            <div class="progress-bar" id="progressBar"></div>
-                            <span id="progressText">0% raspado</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="scratch-area-container">
-                    <canvas id="scratchCanvas" width="500" height="300"></canvas>
-                    <div class="prize-message" id="prizeMessage">
-                        <div class="trophy">
-                            <i class="fas fa-money-bill-wave"></i>
-                        </div>
-                        <h2>PARABÉNS!</h2>
-                        <h1>Você ganhou <span class="highlight">1 MILHÃO DE REAIS</span>!</h1>
-                        <p class="prize-description">Prêmio garantido! Entre em contato para resgatar.</p>
-                        <div class="prize-code">
-                            <p><i class="fas fa-key"></i> Código do Prêmio: <strong>MILHÃO-2024-BR-001</strong></p>
-                            <button class="copy-btn" id="copyCodeBtn"><i class="far fa-copy"></i> Copiar Código</button>
-                        </div>
-                        <div class="winning-info">
-                            <div class="info-item">
-                                <i class="fas fa-calendar-check"></i>
-                                <span>Validade: 31/12/2024</span>
+        <!-- Área Principal do Jogo -->
+        <main class="game-main">
+            <div class="game-container">
+                <!-- Cartão da Raspadinha -->
+                <div class="scratch-card-wrapper">
+                    <div class="card-design">
+                        <!-- Cabeçalho do Cartão -->
+                        <div class="card-header">
+                            <div class="card-brand">
+                                <div class="brand-icon">
+                                    <i class="fas fa-gem"></i>
+                                </div>
+                                <div class="brand-text">
+                                    <h2>PREMIUM EDITION</h2>
+                                    <p>Raspadinha Oficial</p>
+                                </div>
                             </div>
-                            <div class="info-item">
-                                <i class="fas fa-phone-alt"></i>
-                                <span>Resgate: 0800-MILHAO</span>
+                            <div class="card-serial">
+                                <span>Série: <strong>MIL-2024-001</strong></span>
+                                <span>ID: <strong>#RSP-987654</strong></span>
                             </div>
                         </div>
+
+                        <!-- Área da Raspadinha -->
+                        <div class="scratch-section">
+                            <div class="scratch-instructions">
+                                <div class="instruction">
+                                    <span class="material-symbols-outlined">touch_app</span>
+                                    <p>Clique e arraste para raspar</p>
+                                </div>
+                                <div class="instruction">
+                                    <span class="material-symbols-outlined">auto_awesome</span>
+                                    <p>Raspe 70% para revelar</p>
+                                </div>
+                            </div>
+
+                            <!-- Canvas da Raspadinha -->
+                            <div class="scratch-area">
+                                <div class="scratch-overlay">
+                                    <canvas id="scratchCanvas" width="600" height="350"></canvas>
+                                    <div class="scratch-border">
+                                        <div class="corner corner-tl"></div>
+                                        <div class="corner corner-tr"></div>
+                                        <div class="corner corner-bl"></div>
+                                        <div class="corner corner-br"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Marcador de Progresso -->
+                                <div class="progress-indicator">
+                                    <div class="progress-bar-bg">
+                                        <div class="progress-fill" id="progressFill"></div>
+                                    </div>
+                                    <span class="progress-text" id="progressText">0% raspado</span>
+                                </div>
+                            </div>
+
+                            <!-- Mensagem do Prêmio (escondida inicialmente) -->
+                            <div class="prize-reveal" id="prizeReveal">
+                                <div class="reveal-animation">
+                                    <div class="sparkle"></div>
+                                    <div class="sparkle"></div>
+                                    <div class="sparkle"></div>
+                                </div>
+                                <div class="prize-content">
+                                    <div class="prize-icon">
+                                        <i class="fas fa-trophy"></i>
+                                    </div>
+                                    <h3 class="prize-title">PARABÉNS!</h3>
+                                    <h2 class="prize-amount" id="prizeAmount">1 MILHÃO DE REAIS</h2>
+                                    <p class="prize-code">Código: <span id="prizeCode">MILHAO-001-2024</span></p>
+                                    <div class="prize-actions">
+                                        <button class="action-btn claim-btn" id="claimBtn">
+                                            <i class="fas fa-gift"></i> RESGATAR PRÊMIO
+                                        </button>
+                                        <button class="action-btn share-btn" id="shareBtn">
+                                            <i class="fas fa-share-alt"></i> COMPARTILHAR
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rodapé do Cartão -->
+                        <div class="card-footer">
+                            <div class="game-info">
+                                <div class="info-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Validade: 31/12/2024</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-phone"></i>
+                                    <span>SAC: 0800 123 4567</span>
+                                </div>
+                            </div>
+                            <div class="game-controls">
+                                <button class="control-btn reset-btn" id="resetBtn">
+                                    <i class="fas fa-eraser"></i> LIMPAR
+                                </button>
+                                <button class="control-btn new-btn" id="newCardBtn">
+                                    <i class="fas fa-plus-circle"></i> NOVA RASPADINHA
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Painel de Estatísticas -->
+                    <div class="stats-panel">
+                        <h3 class="panel-title">
+                            <i class="fas fa-chart-line"></i> SUAS ESTATÍSTICAS
+                        </h3>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-scroll"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="stat-label">Raspadinhas</span>
+                                    <span class="stat-value" id="scratchCount">1</span>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-award"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="stat-label">Prêmios</span>
+                                    <span class="stat-value" id="prizeCount">0</span>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="stat-label">Total Ganho</span>
+                                    <span class="stat-value" id="totalPrize">R$ 0</span>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-percentage"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="stat-label">Chance de Ganho</span>
+                                    <span class="stat-value">78%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tabela de Prêmios -->
+                        <div class="prizes-table">
+                            <h4 class="table-title">
+                                <i class="fas fa-medal"></i> TABELA DE PRÊMIOS
+                            </h4>
+                            <div class="table-content">
+                                <div class="prize-row jackpot">
+                                    <span class="prize-name">Jackpot</span>
+                                    <span class="prize-value">R$ 1.000.000</span>
+                                </div>
+                                <div class="prize-row">
+                                    <span class="prize-name">2º Prêmio</span>
+                                    <span class="prize-value">R$ 500.000</span>
+                                </div>
+                                <div class="prize-row">
+                                    <span class="prize-name">3º Prêmio</span>
+                                    <span class="prize-value">R$ 100.000</span>
+                                </div>
+                                <div class="prize-row">
+                                    <span class="prize-name">4º Prêmio</span>
+                                    <span class="prize-value">R$ 50.000</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="card-footer">
-                    <div class="stats">
-                        <div class="stat">
-                            <i class="fas fa-scroll"></i>
-                            <span>Raspadinhas: <strong id="scratchCount">1</strong></span>
-                        </div>
-                        <div class="stat">
-                            <i class="fas fa-award"></i>
-                            <span>Prêmios: <strong id="prizeCount">0</strong></span>
-                        </div>
-                        <div class="stat">
-                            <i class="fas fa-wallet"></i>
-                            <span>Total: <strong id="totalPrize">R$ 0</strong></span>
-                        </div>
+                <!-- Painel de Informações -->
+                <div class="info-panel">
+                    <div class="info-card">
+                        <h3 class="info-title">
+                            <i class="fas fa-info-circle"></i> COMO FUNCIONA
+                        </h3>
+                        <ul class="info-list">
+                            <li><span>1.</span> Clique e arraste sobre a área prateada para raspar</li>
+                            <li><span>2.</span> Raspe pelo menos 70% da área para revelar o prêmio</li>
+                            <li><span>3.</span> Clique em "Nova Raspadinha" para jogar novamente</li>
+                            <li><span>4.</span> Resgate seu prêmio usando o código fornecido</li>
+                        </ul>
                     </div>
-                    <div class="controls">
-                        <button class="btn secondary" id="resetBtn">
-                            <i class="fas fa-redo"></i> Limpar Área
-                        </button>
-                        <button class="btn primary" id="newCardBtn">
-                            <i class="fas fa-plus-circle"></i> Nova Raspadinha
-                        </button>
+
+                    <div class="info-card">
+                        <h3 class="info-title">
+                            <i class="fas fa-shield-alt"></i> SEGURANÇA
+                        </h3>
+                        <ul class="info-list">
+                            <li><i class="fas fa-check"></i> Sistema de raspagem verificável</li>
+                            <li><i class="fas fa-check"></i> Códigos únicos e seguros</li>
+                            <li><i class="fas fa-check"></i> Transparência total</li>
+                            <li><i class="fas fa-check"></i> Suporte 24h</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-card testimonial">
+                        <h3 class="info-title">
+                            <i class="fas fa-comment"></i> DEPOIMENTO
+                        </h3>
+                        <div class="testimonial-content">
+                            <p>"Ganhei R$ 100.000 na semana passada! Processo simples e pagamento rápido!"</p>
+                            <div class="testimonial-author">
+                                <img src="https://i.pravatar.cc/40" alt="Usuário">
+                                <div>
+                                    <strong>Carlos Silva</strong>
+                                    <span>Ganhador Verificado</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </main>
 
-            <div class="features">
-                <h3><i class="fas fa-star"></i> Como Resgatar Seu Prêmio</h3>
-                <div class="feature-list">
-                    <div class="feature">
-                        <i class="fas fa-1"></i>
-                        <span>Anote o código do prêmio</span>
-                    </div>
-                    <div class="feature">
-                        <i class="fas fa-2"></i>
-                        <span>Ligue para 0800-MILHAO</span>
-                    </div>
-                    <div class="feature">
-                        <i class="fas fa-3"></i>
-                        <span>Forneça seus dados e código</span>
-                    </div>
-                    <div class="feature">
-                        <i class="fas fa-4"></i>
-                        <span>Receba em até 5 dias úteis</span>
-                    </div>
+        <!-- Rodapé -->
+        <footer class="main-footer">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-crown"></i>
+                    <span>RASPADINHA DO MILHÃO</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div class="footer-disclaimer">
+                    <p><i class="fas fa-exclamation-triangle"></i> Jogo simulado para entretenimento. Este site não envolve transações reais de dinheiro.</p>
                 </div>
             </div>
-        </div>
-
-        <div class="disclaimer">
-            <p><i class="fas fa-exclamation-circle"></i> <strong>Atenção:</strong> Esta é uma simulação para fins de entretenimento. Não é uma raspadinha real com prêmios em dinheiro.</p>
-        </div>
-
-        <footer>
-            <p>Raspadinha do Milhão - Jogo simulado para diversão. Desenvolvido com HTML5 Canvas.</p>
-            <p class="github-link">
-                <i class="fab fa-github"></i> 
-                Hospedado no GitHub - Código disponível para estudo
-            </p>
         </footer>
+
+        <!-- Efeitos Visuais -->
+        <div class="effects-container">
+            <div class="particles" id="particles"></div>
+            <div class="confetti-container" id="confettiContainer"></div>
+        </div>
     </div>
 
-    <div class="confetti-container" id="confettiContainer"></div>
-    <div class="money-fall-container" id="moneyFallContainer"></div>
-    
+    <!-- Modal de Resgate -->
+    <div class="modal" id="claimModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-gift"></i> RESGATE SEU PRÊMIO</h3>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h4 id="modalPrizeAmount">1 MILHÃO DE REAIS</h4>
+                <p class="modal-code">Código: <span id="modalPrizeCode">MILHAO-001-2024</span></p>
+                
+                <div class="claim-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h5>Anote seu código</h5>
+                            <p>Guarde o código acima em local seguro</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h5>Entre em contato</h5>
+                            <p>Ligue para 0800 123 4567</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h5>Forneça os dados</h5>
+                            <p>Informe seu código e documentos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn" id="copyAllBtn">
+                    <i class="far fa-copy"></i> COPIAR INFORMAÇÕES
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
-
-
