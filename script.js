@@ -100,3 +100,30 @@ canvas.addEventListener('mousemove', function(e) {
 canvas.addEventListener('mouseup', function() {
     fraseDiv.classList.remove('hidden'); // revela a frase
 });
+
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+// Preenche o canvas com a cor da raspadinha
+ctx.fillStyle = '#C0C0C0'; 
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+// Evento de raspagem
+let raspou = false;
+canvas.addEventListener('mousemove', function(e){
+    if(e.buttons !== 1) return; // só quando o botão do mouse está pressionado
+
+    const x = e.offsetX;
+    const y = e.offsetY;
+
+    ctx.clearRect(x-10, y-10, 20, 20); // “raspa” a área
+    raspou = true;
+});
+
+// Quando solta o mouse, podemos revelar a frase (opcional)
+canvas.addEventListener('mouseup', function(){
+    if(raspou){
+        console.log('Frase visível agora!');
+        // A frase já está atrás, não precisa mostrar nada, o canvas raspado deixa aparecer
+    }
+});
